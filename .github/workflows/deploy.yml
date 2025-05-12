@@ -1,27 +1,30 @@
 name: Deploy to Tomcat
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-            java-version: '17'
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
 
-      - name: Build with Maven
-        run: mvn clean package
+      - name: Build with Maven
+        run: mvn clean package
 
-      - name: Deploy to Tomcat
-        env:
-          TOMCAT_USER: ${{ secret.TOMCAT_USER }}
-          TOMCAT_PASSWORD: ${{ secret.TOMCAT_PASSWORD }}
-          TOMCAT_URL: ${{ secret.TOMCAT_URL }}
-        run: curl --upload-file target/tennis-scoreboard.war "${TOMCAT_URL/manager/text/deploy?path=/tennis-scoreboard&update=true" --user "${TOMCAT_USER}:${TOMCAT_PASSWORD}"
+      - name: Deploy to Tomcat
+        env:
+          TOMCAT_USER: ${{ secrets.TOMCAT_USER }}
+          TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
+          TOMCAT_URL: ${{ secrets.TOMCAT_URL }}
+        run: |
+          curl --upload-file target/tennis-scoreboard.war \
+          "${TOMCAT_URL}/manager/text/deploy?path=/tennis-scoreboard&update=true" \
+          --user "${TOMCAT_USER}:${TOMCAT_PASSWORD}"
