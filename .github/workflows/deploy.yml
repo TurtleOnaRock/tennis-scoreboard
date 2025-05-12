@@ -1,0 +1,29 @@
+name: Deploy to Tomcat
+
+on:
+  push:
+    branches:
+      -master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+          with:
+            java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Deploy to Tomcat
+        env:
+          TOMCAT_USER: ${{ secret.TOMCAT_USER }}
+          TOMCAT_PASSWORD: ${{ secret.TOMCAT_PASSWORD }}
+          TOMCAT_URL: ${{ secret.TOMCAT_URL }}
+        run: curl --upload-file target/tennis-scoreboard.war "${TOMCAT_URL/manager/text/deploy?path=/tennis-scoreboard&update=true" --user "${TOMCAT_USER}:${TOMCAT_PASSWORD}"
