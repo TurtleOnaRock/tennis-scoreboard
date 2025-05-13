@@ -28,7 +28,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "tennis-scoreboard.war"
+          source: "target/tennis-scoreboard.war"
           target: "/opt/apache-tomcat-11.0.5/webapps"
 
       - name: Restart Tomcat service
