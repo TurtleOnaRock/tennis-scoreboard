@@ -37,4 +37,8 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          script: /opt/apache-tomcat-11.0.5/bin/shutdown.sh; /opt/apache-tomcat-11.0.5/bin/startup.sh
+          script: >
+                   mv /opt/apache-tomcat-11.0.5/webapps/target/tennis-scoreboard.war /opt/apache-tomcat-11.0.5/webapps;
+                   rm -r /opt/apache-tomcat-11.0.5/webapps/target;
+                   /opt/apache-tomcat-11.0.5/bin/shutdown.sh;
+                   /opt/apache-tomcat-11.0.5/bin/startup.sh
