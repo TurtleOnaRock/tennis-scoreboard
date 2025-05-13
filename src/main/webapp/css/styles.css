@@ -11,16 +11,7 @@ body{
     background-color: mintcream;
 }
 
-.box {
-    display: block;
-    align-items: center;
-    margin: auto;
-    width: 80%;
-    max-width: 600px;
-    height: 450px;
-    background-color: #b0b89b;
-}
-
+/*----------   index.html   ----------*/
 h1{
     margin: 0;
     padding-top: 20px;
@@ -31,11 +22,13 @@ h1{
 }
 
 .welcomePicture{
-    width: 70%;
+    display: block;
+    margin: 0;
+    width: 100%;
 }
 
 .botton{
-    display: block;
+    display: inline-block;
     margin: 10px;
     width: 130px;
     font-size: 18px;
@@ -51,16 +44,30 @@ h1{
     color: black;
 }
 
-.players_input_form{
-    display: block;
+/* -------   /new-match page   -----------*/
+.form_new_players{
+    display: inline-block;
     align-items: center;
 }
 
-input{
-    display: block;
-    align-items: center;
-    border-radius: 5px;
+.form_new_players label{
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 20px;
 }
- label{
-     display: block;
- }
+
+.form_new_players input{
+    display: block;
+    margin-top: 10px;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.form_new_players button{
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 20px;
+    border-radius: 7px;
+    border-width: 3px;
+}
