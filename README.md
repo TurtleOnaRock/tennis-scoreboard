@@ -1,4 +1,4 @@
-Deploy: 77.95.201.243:8080/tennis-scoreboard
+Deploy: http://77.95.201.243:8080/tennis-scoreboard
 
 The project is a tennis scoreboard web application. 
 
