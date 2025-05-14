@@ -2,8 +2,6 @@ package servlets;
 
 import exceptions.IncorrectParameterException;
 
-import java.util.Properties;
-
 public class ServletUtils {
 
     public static void validateParameter(String parameter, int maxLenth, String forbiddenChar) throws IncorrectParameterException{
@@ -11,7 +9,7 @@ public class ServletUtils {
             throw new IncorrectParameterException("Введите имя игрока.");
         }
         if (parameter.length() > maxLenth){
-            throw new IncorrectParameterException(parameter + "слишком длинное. Имя должно содержать не более " + maxLenth + " символов");
+            throw new IncorrectParameterException(parameter + "\n Cлишком длинное имя. Имя должно содержать не более " + maxLenth + " символов");
         }
         if (containsForbiddenChar(parameter, forbiddenChar)) {
             throw new IncorrectParameterException("Имя не должно содержать знаков: " + forbiddenChar);

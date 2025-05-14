@@ -16,7 +16,7 @@ public class PlayersDAOImpl implements PlayerDao {
         player.setName(name);
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
-            session.save(player);
+            session.persist(player);
             session.getTransaction().commit();
         } catch (Exception e){
             throw new DataBaseException("Problem in save");

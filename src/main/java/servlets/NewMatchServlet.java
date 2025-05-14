@@ -9,16 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
 
     public static final int DEFAULT_MAX_LENGTH=50;
-    public static final String DEFAULT_FORBIDDEN_CHARS = ";({[)]}";
-    public static final String PROPERTIES_PATH = "config.properties";
+    public static final String DEFAULT_FORBIDDEN_CHARS = "!?\";({[)}]";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,19 +24,13 @@ public class NewMatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException{
-        int maxParameterLength = DEFAULT_MAX_LENGTH;
-        String forbiddenChars = DEFAULT_FORBIDDEN_CHARS;
-        try {
-            getProperties(maxParameterLength, forbiddenChars);
-        } catch (IOException e){
-        }
-
         String playerName1 = req.getParameter("player_name_1");
         String playerName2 = req.getParameter("player_name_2");
 
         try {
-            ServletUtils.validateParameter(playerName1, maxParameterLength, forbiddenChars);
-            ServletUtils.validateParameter(playerName2, maxParameterLength, forbiddenChars);
+            ServletUtils.validateParameter(playerName1, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            ServletUtils.validateParameter(playerName2, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            checkSelfGame(playerName1, playerName2);
         } catch (IncorrectParameterException e){
             req.setAttribute("errorMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/new-match.jsp").forward(req, resp);
@@ -48,15 +39,13 @@ public class NewMatchServlet extends HttpServlet {
         PlayerDao dao = new PlayersDAOImpl();
         dao.save(playerName1);
         dao.save(playerName2);
-        getServletContext().getRequestDispatcher("/match-score").forward(req, resp);
+
+        resp.sendRedirect("match-score");
     }
 
-    private static void getProperties(int maxParameterLength, String forbiddenChars) throws IOException{
-        Properties properties = new Properties();
-        try(FileInputStream input = new FileInputStream(PROPERTIES_PATH)){
-            properties.load(input);
-            maxParameterLength = Integer.valueOf(properties.getProperty("player_name_max_length"));
-            forbiddenChars = properties.getProperty("forbidden_chars");
+    private static void checkSelfGame(String player1, String player2) throws IncorrectParameterException{
+        if(player1.equals(player2)){
+            throw new IncorrectParameterException("Игра с самим собой запрещена! Введите имя второго игрока.");
         }
     }
 
