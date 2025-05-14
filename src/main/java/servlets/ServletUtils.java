@@ -2,8 +2,6 @@ package servlets;
 
 import exceptions.IncorrectParameterException;
 
-import java.util.Properties;
-
 public class ServletUtils {
 
     public static void validateParameter(String parameter, int maxLenth, String forbiddenChar) throws IncorrectParameterException{
