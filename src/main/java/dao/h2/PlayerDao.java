@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PlayerDao {
 
-    void save (String name);
+    Player save (Player player);
 
     Optional<Player> findPlayer(String name);
 

@@ -11,16 +11,17 @@ import java.util.Optional;
 public class PlayersDAOImpl implements PlayerDao {
 
     @Override
-    public void save(String name) {
-        Player player = new Player();
-        player.setName(name);
+    public Player save(Player player) {
+        int id;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
-            session.persist(player);
+            id = (int) session.save(player);
             session.getTransaction().commit();
         } catch (Exception e){
             throw new DataBaseException("Problem in save");
         }
+        player.setId(id);
+        return player;
     }
 
     @Override

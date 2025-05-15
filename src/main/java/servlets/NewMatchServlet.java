@@ -2,14 +2,19 @@ package servlets;
 
 import dao.h2.PlayerDao;
 import dao.h2.PlayersDAOImpl;
+import entities.Player;
 import exceptions.IncorrectParameterException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.GameFactoryService;
+import services.TennisGame;
+import services.TennisGames;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
@@ -24,23 +29,20 @@ public class NewMatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException{
-        String playerName1 = req.getParameter("player_name_1");
-        String playerName2 = req.getParameter("player_name_2");
+        String name1 = req.getParameter("player_name_1");
+        String name2 = req.getParameter("player_name_2");
 
         try {
-            ServletUtils.validateParameter(playerName1, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
-            ServletUtils.validateParameter(playerName2, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
-            checkSelfGame(playerName1, playerName2);
+            ServletUtils.validateParameter(name1, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            ServletUtils.validateParameter(name2, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            checkSelfGame(name1, name2);
         } catch (IncorrectParameterException e){
             req.setAttribute("errorMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/new-match.jsp").forward(req, resp);
         }
 
-        PlayerDao dao = new PlayersDAOImpl();
-        dao.save(playerName1);
-        dao.save(playerName2);
-
-        resp.sendRedirect("match-score");
+        UUID uuid = GameFactoryService.create(name1, name2);
+        resp.sendRedirect("match-score?uuid=" + uuid);
     }
 
     private static void checkSelfGame(String player1, String player2) throws IncorrectParameterException{

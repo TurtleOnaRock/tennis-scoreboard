@@ -9,11 +9,10 @@ import lombok.*;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name="name", unique = true)
+    @Column(name="name", unique = true, nullable = false)
     private String name;
 
 }
