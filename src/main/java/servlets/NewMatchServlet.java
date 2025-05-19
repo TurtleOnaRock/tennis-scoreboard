@@ -1,17 +1,12 @@
 package servlets;
 
-import dao.h2.PlayerDao;
-import dao.h2.PlayersDAOImpl;
-import entities.Player;
 import exceptions.IncorrectParameterException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.GameFactoryService;
-import services.TennisGame;
-import services.TennisGames;
+import services.TennisMatchFactory;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -41,7 +36,7 @@ public class NewMatchServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/new-match.jsp").forward(req, resp);
         }
 
-        UUID uuid = GameFactoryService.create(name1, name2);
+        UUID uuid = TennisMatchFactory.create(name1, name2);
         resp.sendRedirect("match-score?uuid=" + uuid);
     }
 

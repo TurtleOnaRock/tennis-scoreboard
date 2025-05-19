@@ -18,7 +18,7 @@ public class PlayersDAOImpl implements PlayerDao {
             id = (int) session.save(player);
             session.getTransaction().commit();
         } catch (Exception e){
-            throw new DataBaseException("Problem in save");
+            throw new DataBaseException("Problem to save " + player.getName());
         }
         player.setId(id);
         return player;

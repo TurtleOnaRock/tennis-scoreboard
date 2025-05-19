@@ -16,6 +16,8 @@ public class PlayerScore {
 
     private int point;
 
+    public PlayerScore(){}
+
     public PlayerScore(Player player){
         this.player = player;
         this.set = 0;

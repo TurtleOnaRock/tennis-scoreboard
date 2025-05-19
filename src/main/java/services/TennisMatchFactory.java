@@ -6,7 +6,8 @@ import entities.Player;
 
 import java.util.UUID;
 
-public class GameFactoryService {
+public class TennisMatchFactory {
+
     public static UUID create(String name1, String name2){
         Player player1 = new Player();
         Player player2 = new Player();
@@ -17,10 +18,10 @@ public class GameFactoryService {
         player1 = dao.save(player1);
         player2 = dao.save(player2);
 
-        TennisGame game = new TennisGame(player1, player2);
+        TennisMatch match = new TennisMatch(player1, player2);
         UUID uuid = UUID.randomUUID();
-        TennisGames games = TennisGames.getInstance();
-        games.addGame(uuid, game);
+        TennisMatchesStorage matches = TennisMatchesStorage.getInstance();
+        matches.addMatch(uuid, match);
         return uuid;
     }
 }

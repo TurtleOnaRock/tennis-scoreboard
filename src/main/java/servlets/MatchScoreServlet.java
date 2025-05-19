@@ -1,42 +1,53 @@
 package servlets;
 
-import dao.h2.PlayerDao;
-import dao.h2.PlayersDAOImpl;
-import entities.Player;
+import dto.TennisMatchDTO;
+import dto.TennisMatchMapper;
 import exceptions.WrongPlayerException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.TennisGame;
-import services.TennisGames;
+import services.TennisMatch;
+import services.TennisMatchesStorage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
-@WebServlet("/match-score*")
+@WebServlet("/match-score")
 public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
-        TennisGame game = TennisGames.getInstance().getGame(uuid);
-        // TO DO transfer "game" from servlet to JSP for rendering page. maybe game should be JavaBean object?
-        getServletContext().getRequestDispatcher("match-score.jsp").forward(req, resp);
+        TennisMatch match = TennisMatchesStorage.getInstance().getMatch(uuid);
+
+        TennisMatchDTO matchDTO = TennisMatchMapper.toMatchDTO(match, uuid);
+
+        req.setAttribute("match", matchDTO);
+        getServletContext().getRequestDispatcher( "/match-score.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         int pointWinnerId = Integer.valueOf(req.getParameter("pointWinner"));
-        TennisGame game = TennisGames.getInstance().getGame(uuid);
+        TennisMatch match = TennisMatchesStorage.getInstance().getMatch(uuid);
+
         try{
-            game.addPointTo(pointWinnerId);
+            match.addPointTo(pointWinnerId);
         } catch (WrongPlayerException e){
             resp.getWriter().println(e.getMessage());
             resp.setStatus(300);
         }
+
+        if(match.isCompleted()){
+//            TO DO : save result to dao
+        }
+
+        TennisMatchDTO matchDTO = TennisMatchMapper.toMatchDTO(match, uuid);
+        req.setAttribute("match", matchDTO);
+        resp.setStatus(200);
+        getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
     }
 }
