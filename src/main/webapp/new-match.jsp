@@ -7,7 +7,15 @@
     <title>New Match</title>
 </head>
 <body>
-    <div class="container">
+<div class="all-screan-container">
+
+    <div class="header">
+        <a class="link-button-big" href="new-match">New match</a>
+        <h1>Registration</h1>
+        <a class="link-button-big" href="matches">Matches</a>
+    </div>
+
+    <div class="flex-container">
         <div class="input_form_box">
             <form class="form_new_players" action="new-match" method="post">
                 <label for="player_name_1">Имя игрока 1</label>
@@ -24,5 +32,11 @@
             </div>
         </div>
     </div>
+
+    <div class="footer">
+        <p>made by <a href="author.jsp">A6e3iana</a></p>
+    </div>
+
+</div>
 </body>
 </html>
