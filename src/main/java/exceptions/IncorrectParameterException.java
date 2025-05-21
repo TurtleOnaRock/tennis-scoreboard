@@ -1,6 +1,8 @@
 package exceptions;
 
-public class IncorrectParameterException extends Throwable {
+import jakarta.servlet.ServletException;
+
+public class IncorrectParameterException extends ServletException {
     public IncorrectParameterException(String message) {
         super(message);
     }

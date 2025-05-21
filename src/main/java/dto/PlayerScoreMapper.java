@@ -9,7 +9,7 @@ public class PlayerScoreMapper {
             throw new NullPointerException("PlayerScoreMapper got playerScore == null");
         }
 
-        int id = playerScore.getPlayer().getId();
+        long id = playerScore.getPlayer().getId();
         String name = playerScore.getPlayer().getName();
         String point;
         int game = playerScore.getGame();

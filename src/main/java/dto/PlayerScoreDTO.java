@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class PlayerScoreDTO {
-    private final int id;
+    private final long id;
     private final String name;
     private final String point;
     private final int game;
