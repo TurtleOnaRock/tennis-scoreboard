@@ -206,3 +206,7 @@ th{
     border: 2px solid red;
 }
 
+.table-matches {
+    border-collapse: collapse;
+    border: 2px;
+}

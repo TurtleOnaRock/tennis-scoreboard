@@ -39,7 +39,7 @@ public class TennisMatch {
         return this.winner != null;
     }
 
-    public void addPointTo(int playerId) throws WrongPlayerException{
+    public void addPointTo(long playerId) throws WrongPlayerException{
         PlayerScore pointWinner;
         PlayerScore secondPlayer;
 
@@ -100,7 +100,7 @@ public class TennisMatch {
     }
 
     private void checkGameScore(PlayerScore gameWinner, PlayerScore secondPlayer){
-        this.conditionMessage = this.conditionMessage + gameWinner.getPlayer().getName() + " take the Game!\n";
+        this.conditionMessage = this.conditionMessage + gameWinner.getPlayer().getName() + " takes the Game!\n";
 
         int gameWinnerScore = gameWinner.getGame();
         int secondPlayerScore = secondPlayer.getGame();

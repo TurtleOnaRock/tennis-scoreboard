@@ -31,7 +31,7 @@
             <table>
                 <tr>
                     <th colspan="2" class="player-1"><%= match.getPlayer1().getName() %></th>
-                    <td colspan="2" class="player-2"><%= match.getPlayer2().getName() %></td>
+                    <th colspan="2" class="player-2"><%= match.getPlayer2().getName() %></th>
                 </tr>
                 <tr>
                     <td>Point</td>

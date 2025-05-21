@@ -2,13 +2,13 @@ package servlets;
 
 import dto.TennisMatchDTO;
 import dto.TennisMatchMapper;
-import exceptions.WrongPlayerException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import services.TennisMatch;
+import services.MatchScoreCalculatorService;
 import services.TennisMatchesStorage;
 
 import java.io.IOException;
@@ -25,29 +25,17 @@ public class MatchScoreServlet extends HttpServlet {
         TennisMatchDTO matchDTO = TennisMatchMapper.toMatchDTO(match, uuid);
 
         req.setAttribute("match", matchDTO);
-        getServletContext().getRequestDispatcher( "/match-score.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
-        int pointWinnerId = Integer.valueOf(req.getParameter("pointWinner"));
-        TennisMatch match = TennisMatchesStorage.getInstance().getMatch(uuid);
+        long pointWinnerId = Long.parseLong(req.getParameter("pointWinner"));
 
-        try{
-            match.addPointTo(pointWinnerId);
-        } catch (WrongPlayerException e){
-            resp.getWriter().println(e.getMessage());
-            resp.setStatus(300);
-        }
+        TennisMatchDTO matchDTO = new MatchScoreCalculatorService().addPoint(uuid, pointWinnerId);
 
-        if(match.isCompleted()){
-//            TO DO : save result to dao
-        }
-
-        TennisMatchDTO matchDTO = TennisMatchMapper.toMatchDTO(match, uuid);
         req.setAttribute("match", matchDTO);
-        resp.setStatus(200);
         getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
     }
 }

@@ -27,5 +27,6 @@
 
         <!-- Mapping entity classes -->
         <mapping class="entities.Player"/>
+        <mapping class="entities.FinishedMatch"/>
     </session-factory>
 </hibernate-configuration>
