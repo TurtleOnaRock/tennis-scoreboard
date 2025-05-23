@@ -28,8 +28,8 @@ public class NewMatchServlet extends HttpServlet {
         String name2 = req.getParameter("player_name_2");
 
         try {
-            ServletUtils.validateParameter(name1, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
-            ServletUtils.validateParameter(name2, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            ValidationUtils.validateParameter(name1, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
+            ValidationUtils.validateParameter(name2, DEFAULT_MAX_LENGTH, DEFAULT_FORBIDDEN_CHARS);
             checkSelfGame(name1, name2);
         } catch (IncorrectParameterException e) {
             req.setAttribute("errorMessage", e.getMessage());

@@ -8,7 +8,11 @@ public interface FinishedMatchDAO {
 
     void save(FinishedMatch finishedMatch);
 
-    List<FinishedMatch> getAll();
+    List<FinishedMatch> getAll(int start, int maxResults);
 
-    List<FinishedMatch> getByName(String name);
+    List<FinishedMatch> getByName(String name, int start, int maxResults);
+
+    long amountOfRecords();
+
+    long amountOfRecords(String filterName);
 }
