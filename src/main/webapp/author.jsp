@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-<div class="all-screan-container">
-
-    <div class="header">
-        <a class="link-button-big" href="new-match">New match</a>
-        <h1>Author</h1>
-        <a class="link-button-big" href="matches">Matches</a>
+<body class="all-screen-container">
+<div class="header">
+    <div class="header-button-box">
+        <a class="button-link" href="new-match">New match</a>
+        <a class="button-link" href="matches">Matches</a>
     </div>
-
-    <div class="flex-container">
-        <div class="box-main">
-            <img src="images/monkey.jpg" alt="monkey-picture">
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>made by <a href="/author.jsp">A6e3iana</a></p>
-    </div>
-
+    <h1>Author</h1>
 </div>
+
+<div class="content-container">
+    <div class="content-box">
+        <img src="images/monkey.jpg" alt="monkey-picture">
+    </div>
+</div>
+
+<div class="footer">
+    <p>made by <a href="/author.jsp">A6e3iana</a></p>
+</div>
+
 </body>
 </html>

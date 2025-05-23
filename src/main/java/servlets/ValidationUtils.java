@@ -2,13 +2,13 @@ package servlets;
 
 import exceptions.IncorrectParameterException;
 
-public class ServletUtils {
+public class ValidationUtils {
 
-    public static void validateParameter(String parameter, int maxLenth, String forbiddenChar) throws IncorrectParameterException{
-        if (parameter == null || parameter.isEmpty()){
+    public static void validateParameter(String parameter, int maxLenth, String forbiddenChar) throws IncorrectParameterException {
+        if (parameter == null || parameter.isEmpty()) {
             throw new IncorrectParameterException("Введите имя игрока.");
         }
-        if (parameter.length() > maxLenth){
+        if (parameter.length() > maxLenth) {
             throw new IncorrectParameterException(parameter + "\n Cлишком длинное имя. Имя должно содержать не более " + maxLenth + " символов");
         }
         if (containsForbiddenChar(parameter, forbiddenChar)) {
@@ -16,8 +16,9 @@ public class ServletUtils {
         }
     }
 
-    private static boolean containsForbiddenChar(String input, String forbiddenChar){
+    private static boolean containsForbiddenChar(String input, String forbiddenChar) {
         String regex = "[" + forbiddenChar + "]";
         return input.matches(".*" + regex + ".*");
     }
+
 }

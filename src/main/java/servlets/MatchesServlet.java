@@ -1,6 +1,6 @@
 package servlets;
 
-import dto.FinishedMatchDTO;
+import dto.FinishedMatchesDTOWrapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,25 +9,39 @@ import jakarta.servlet.http.HttpServletResponse;
 import services.FinishedMatchesService;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/matches")
 public class MatchesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<FinishedMatchDTO> matches;
+        FinishedMatchesDTOWrapper matchesDTOWrapped;
 
-//        int page = Integer.parseInt(req.getParameter("page"));
+        int page = getPageNumber(req.getParameter("page"));
         String filterName = req.getParameter("filter_by_player_name");
 
         if (filterName == null || filterName.isEmpty()) {
-            matches = new FinishedMatchesService().getAll();
+            matchesDTOWrapped = new FinishedMatchesService().getAll(page);
         } else {
-            matches = new FinishedMatchesService().getByName(filterName);
+            matchesDTOWrapped = new FinishedMatchesService().getByName(filterName, page);
         }
 
-        req.setAttribute("matches", matches);
+        req.setAttribute("matches", matchesDTOWrapped);
         getServletContext().getRequestDispatcher("/matches.jsp").forward(req, resp);
     }
+
+    private int getPageNumber(String pageParameter){
+        if(pageParameter == null || pageParameter.isEmpty()){
+            return 1;
+        }
+        if(!onlyDigits(pageParameter)){
+            return 1;
+        }
+        return Integer.parseInt(pageParameter);
+    }
+
+    private boolean onlyDigits(String parameter){
+        return parameter.matches("[0123456789]+");
+    }
+
 }

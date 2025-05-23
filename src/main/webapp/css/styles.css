@@ -2,83 +2,62 @@
     margin: 0;
 }
 
-body{
-    height: 90vh;
-    width: 100%;
+.all-screen-container{
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    background-color: mintcream;
-}
-
-.all-screan-container{
-    display: block;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 .header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 10%;
+    display: block;
+    text-align: center;
     background-color: lightsalmon;
+}
+
+.header-button-box{
+    display: flex;
+    justify-content: space-between;
 }
 
 .header h1 {
-    font-size: 25px;
+    font-size: 30px;
     padding: 0;
 }
 
-.flex-container{
+.content-container{
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    height: 90%;
-    min-height: 450px;
+    align-content: flex-start;
     background-color: lightsalmon;
 }
 
-.footer {
+.content-box {
+    margin: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+.footer {
+    display: block;
     background-color: yellow;
 }
 
-.box-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.box-buttons{
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-}
-
-
-/*----------   index.html   ----------*/
-h1{
-    margin: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    color: black;
+.footer > p {
+    font-size: 20px;
+    padding: 25px;
 }
 
 .welcomePicture{
     display: block;
     margin: 0;
+    padding: 20px;
     width: 100%;
 }
 
-
-/* -------   /new-match page   -----------*/
 .form_new_players{
     display: inline-block;
     align-items: center;
@@ -111,8 +90,8 @@ h1{
     display:flex;
     align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 100px;
+    width: 350px;
+    height: 130px;
     color: black;
     font-size: 20px;
 }
@@ -127,9 +106,14 @@ h1{
     border-width: 2px;
 }
 
-.button-small{
-    width: 80px;
-    height: 30px;
+[class^="button-"]:hover {
+    color: black;
+    background-color: yellow;
+}
+
+.button-form-small{
+    width: 40px;
+    height: 35px;
     margin: 10px;
     border-radius: 7px;
     border-color: black;
@@ -137,9 +121,10 @@ h1{
     color: yellow;
 }
 
-.button-large{
-    width: 150px;
-    height: 40px;
+.button-form-large{
+    text-align: center;
+    width: 120px;
+    height: 35px;
     margin: 15px;
     border-radius: 10px;
     border-color: black;
@@ -147,9 +132,10 @@ h1{
     color: yellow;
 }
 
-.link-button-big {
+.button-link {
     margin: 15px;
-    width: 100px;
+    width: 130px;
+    height: 20px;
     padding: 15px;
     border-radius: 15px;
     text-decoration: none;
@@ -157,23 +143,10 @@ h1{
     background-color: black;
 }
 
-.button-box {
+.box-buttons{
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.link-button-big:hover{
-    color: black;
-    background-color: yellow;
-
-}
-
-.link-button-small{
-    width: 60px;
-    height: 30px;
-    border-radius: 10px;
-
+    gap: 50px;
 }
 
 /*   ---------- TABLES   ----------   */
@@ -181,32 +154,55 @@ h1{
 .box-table-score {
     display: flex;
     justify-content: center;
+    align-content: center;
 }
 
-table{
+.table-scoreboard{
     width: 250px;
     height: 250px;
-    border: 2px solid black;
 }
 
 th{
     height: 50px;
+    border-radius: 25px;
 }
 
-.value{
+td{
+    border-radius: 35px;
     height: 50px;
     width: 50px;
 }
 
 .player-1{
-    border: 2px solid blue;
+    background-color: #8788f1;
 }
-
 .player-2{
-    border: 2px solid red;
+    background-color: #f17471;
 }
 
-.table-matches {
-    border-collapse: collapse;
-    border: 2px;
+.search-match{
+    width: 250px;
+    font-size: 20px;
+}
+
+.table-matches{
+    width: 450px;
+    border-collapse: collapse ;
+}
+
+.table-matches th{
+    border: 3px solid black;
+}
+
+.table-matches td {
+    border: 2px solid black;
+}
+
+.page-box {
+    display:flex;
+    align-items: center;
+}
+
+.title-start-page {
+    margin-top: 80px;
 }
