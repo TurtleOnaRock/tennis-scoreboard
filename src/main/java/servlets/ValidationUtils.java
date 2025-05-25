@@ -12,7 +12,7 @@ public class ValidationUtils {
             throw new IncorrectParameterException(parameter + "\n is too long! Player's name should consist of less than" + maxLenth + " characters");
         }
         if (containsForbiddenChar(parameter, forbiddenChar)) {
-            throw new IncorrectParameterException("Player's name might not include follows characters: " + forbiddenChar);
+            throw new IncorrectParameterException("Player's name might not include followed characters: " + forbiddenChar);
         }
     }
 
