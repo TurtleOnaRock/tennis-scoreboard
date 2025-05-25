@@ -16,6 +16,7 @@ public class NewMatchServlet extends HttpServlet {
 
     public static final int DEFAULT_MAX_LENGTH = 50;
     public static final String DEFAULT_FORBIDDEN_CHARS = "!?\";({[)}]";
+    public static final String SELF_GAME_MESSAGE = "You can't play with yourself! Enter the name of second player.";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +43,7 @@ public class NewMatchServlet extends HttpServlet {
 
     private static void checkSelfGame(String player1, String player2) throws IncorrectParameterException {
         if (player1.equals(player2)) {
-            throw new IncorrectParameterException("Игра с самим собой запрещена! Введите имя второго игрока.");
+            throw new IncorrectParameterException(SELF_GAME_MESSAGE);
         }
     }
 

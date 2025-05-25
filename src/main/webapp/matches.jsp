@@ -69,10 +69,11 @@
                 <button class="button-form-small">></button>
             </form>
             <form>
-                <input type="text"
-                       placeholder="input page number"
+                <input class="form-page"
+                       type="text"
+                       placeholder="page number"
                        name="page">
-                <button class="button-form-large">page</button>
+                <button class="button-form-large">Page</button>
             </form>
         </div>
         <% } %>

@@ -6,13 +6,13 @@ public class ValidationUtils {
 
     public static void validateParameter(String parameter, int maxLenth, String forbiddenChar) throws IncorrectParameterException {
         if (parameter == null || parameter.isEmpty()) {
-            throw new IncorrectParameterException("Введите имя игрока.");
+            throw new IncorrectParameterException("Enter a player's name");
         }
         if (parameter.length() > maxLenth) {
-            throw new IncorrectParameterException(parameter + "\n Cлишком длинное имя. Имя должно содержать не более " + maxLenth + " символов");
+            throw new IncorrectParameterException(parameter + "\n is too long! Player's name should consist of less than" + maxLenth + " characters");
         }
         if (containsForbiddenChar(parameter, forbiddenChar)) {
-            throw new IncorrectParameterException("Имя не должно содержать знаков: " + forbiddenChar);
+            throw new IncorrectParameterException("Player's name might not include follows characters: " + forbiddenChar);
         }
     }
 
@@ -22,3 +22,4 @@ public class ValidationUtils {
     }
 
 }
+

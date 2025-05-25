@@ -19,11 +19,11 @@
 <div class="content-container">
     <div class="content-box">
         <form class="form_new_players" action="new-match" method="post">
-            <label for="player_name_1">Имя игрока 1</label>
-            <input type="text" id="player_name_1" name="player_name_1" placeholder="Имя игрока 1"/>
-            <label for="player_name_2">Имя игрока 2</label>
-            <input type="text" id="player_name_2" name="player_name_2" placeholder="Имя игрока 2"/>
-            <button class="button-form-large" type="submit"> Отправить</button>
+            <label for="player_name_1">Player 1</label>
+            <input type="text" id="player_name_1" name="player_name_1" placeholder="player's name"/>
+            <label for="player_name_2">Player 2</label>
+            <input type="text" id="player_name_2" name="player_name_2" placeholder="player's name"/>
+            <button class="button-form-large" type="submit">Send</button>
         </form>
         <div class="error-box">
             <% String error = (String) request.getAttribute("errorMessage");%>

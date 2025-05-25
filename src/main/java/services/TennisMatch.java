@@ -120,7 +120,7 @@ public class TennisMatch {
 
         if (setWinner.getSet() == AMOUNT_SETS_TO_WIN) {
             this.winner = setWinner.getPlayer();
-            this.conditionMessage = this.conditionMessage + "Congratulations to " + setWinner.getPlayer().getName() + " on the victory!";
+            this.conditionMessage = this.conditionMessage + setWinner.getPlayer().getName() + " WINS!";
         }
     }
 

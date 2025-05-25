@@ -163,12 +163,12 @@
     height: 250px;
 }
 
-th{
+.table-scoreboard th{
     height: 50px;
     border-radius: 25px;
 }
 
-td{
+.table-scoreboard td{
     border-radius: 35px;
     height: 50px;
     width: 50px;
@@ -187,16 +187,18 @@ td{
 }
 
 .table-matches{
-    width: 450px;
+    width: 100%;
     border-collapse: collapse ;
-}
-
-.table-matches th{
-    border: 3px solid black;
-}
-
-.table-matches td {
     border: 2px solid black;
+}
+
+.table-matches th {
+    height: 35px;
+    border: 2px solid black;
+}
+.table-matches  td {
+    height: 35px;
+    border: 1px solid black;
 }
 
 .page-box {
@@ -206,4 +208,9 @@ td{
 
 .title-start-page {
     margin-top: 80px;
+}
+
+.form-page {
+    width: 80px;
+    height: 25px;
 }
