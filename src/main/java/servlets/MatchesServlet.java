@@ -22,8 +22,10 @@ public class MatchesServlet extends HttpServlet {
 
         if (filterName == null || filterName.isEmpty()) {
             matchesDTOWrapped = new FinishedMatchesService().getAll(page);
+            matchesDTOWrapped.setFilterPlayerName("");
         } else {
             matchesDTOWrapped = new FinishedMatchesService().getByName(filterName, page);
+            matchesDTOWrapped.setFilterPlayerName(filterName);
         }
 
         req.setAttribute("matches", matchesDTOWrapped);

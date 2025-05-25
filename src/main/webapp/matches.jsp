@@ -10,10 +10,11 @@
     <title>Matches</title>
 </head>
 <body class="all-screen-container">
-<%  FinishedMatchesDTOWrapper matchesDTOwrapped = (FinishedMatchesDTOWrapper) request.getAttribute("matches");
-    List<FinishedMatchDTO> matchesDTO = matchesDTOwrapped.getFinishedMatchesDto();
-    int currentPage = matchesDTOwrapped.getCurrentPage();
-    int totalPage = matchesDTOwrapped.getTotalPages();
+<%  FinishedMatchesDTOWrapper matchesDTOWrapped = (FinishedMatchesDTOWrapper) request.getAttribute("matches");
+    List<FinishedMatchDTO> matchesDTO = matchesDTOWrapped.getFinishedMatchesDto();
+    int currentPage = matchesDTOWrapped.getCurrentPage();
+    int totalPage = matchesDTOWrapped.getTotalPages();
+    String filterPlayerName = matchesDTOWrapped.getFilterPlayerName();
 %>
 
 <div class="header">
@@ -60,12 +61,22 @@
         </table>
         <div class="page-box">
             <form>
-                <input type="hidden" name="page" value="<%=currentPage-1%>">
+                <input type="hidden"
+                       name="page"
+                       value="<%=currentPage-1%>">
+                <input type="hidden"
+                       name="filter_by_player_name"
+                       value="<%=filterPlayerName%>">
                 <button class="button-form-small"><</button>
             </form>
             <p><%=currentPage%>/<%=totalPage%></p>
             <form>
-                <input type="hidden" name="page" value="<%=currentPage+1%>">
+                <input type="hidden"
+                       name="page"
+                       value="<%=currentPage+1%>">
+                <input type="hidden"
+                       name="filter_by_player_name"
+                       value="<%=filterPlayerName%>">
                 <button class="button-form-small">></button>
             </form>
             <form>
@@ -73,6 +84,9 @@
                        type="text"
                        placeholder="page number"
                        name="page">
+                <input type="hidden"
+                       name="filter_by_player_name"
+                       value="<%=filterPlayerName%>">
                 <button class="button-form-large">Page</button>
             </form>
         </div>
