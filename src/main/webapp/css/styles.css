@@ -115,8 +115,7 @@
 .button-form-small{
     width: 40px;
     height: 35px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
     border-radius: 7px;
     border-color: black;
     background-color: black;

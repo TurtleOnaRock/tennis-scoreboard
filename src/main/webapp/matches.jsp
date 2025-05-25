@@ -82,7 +82,7 @@
             <form>
                 <input class="form-page"
                        type="text"
-                       placeholder="page number"
+                       placeholder="page"
                        name="page">
                 <input type="hidden"
                        name="filter_by_player_name"
