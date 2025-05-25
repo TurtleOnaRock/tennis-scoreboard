@@ -32,7 +32,7 @@
         <form action="matches" method="get">
             <input class="search-match"
                    type="text"
-                   placeholder="search by player name"
+                   placeholder="player's name"
                    name="filter_by_player_name">
             <button class="button-form-large" type="submit">Search</button>
         </form>
