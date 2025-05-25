@@ -15,7 +15,7 @@ import java.util.List;
 public class FinishedMatchesService {
 
     public static final int MIN_PAGE_NUMBER = 1;
-    public static final int PAGE_SIZE = 2;
+    public static final int PAGE_SIZE = 5;
 
     public void save(TennisMatch match) {
         FinishedMatch finishedMatch = toFinishedMatch(match);
