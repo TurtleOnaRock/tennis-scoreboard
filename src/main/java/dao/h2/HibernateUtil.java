@@ -11,13 +11,12 @@ public class HibernateUtil {
     static {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
-        }
-        catch (Throwable ex){
+        } catch (Throwable ex) {
             throw new DataBaseException("Session was not set up");
         }
     }
 
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

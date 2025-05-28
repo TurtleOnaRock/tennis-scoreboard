@@ -1,17 +1,17 @@
 package dto;
 
 
-import services.TennisMatch;
+import services.OngoingMatch;
 
 import java.util.UUID;
 
-public class TennisMatchMapper {
+public class OngoingMatchMapper {
 
-    public static TennisMatchDTO toMatchDTO(TennisMatch match, UUID uuid ){
-        if(match == null){
+    public static OngoingMatchDTO toMatchDTO(OngoingMatch match, UUID uuid) {
+        if (match == null) {
             throw new NullPointerException("DtoMapper got match == null");
         }
-        if(uuid == null){
+        if (uuid == null) {
             throw new NullPointerException("DtoMapper got uuid == null");
         }
 
@@ -20,6 +20,6 @@ public class TennisMatchMapper {
         String conditionMessage = match.getConditionMessage();
         boolean isCompleted = match.isCompleted();
 
-        return new TennisMatchDTO(player1, player2, uuid, conditionMessage, isCompleted);
+        return new OngoingMatchDTO(player1, player2, uuid, conditionMessage, isCompleted);
     }
 }

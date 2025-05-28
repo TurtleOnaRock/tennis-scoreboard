@@ -1,4 +1,4 @@
-<%@ page import="dto.TennisMatchDTO" %>
+<%@ page import="dto.OngoingMatchDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,7 @@
 </head>
 <body class="all-screen-container">
 <%
-    TennisMatchDTO match = (TennisMatchDTO) request.getAttribute("match");
+    OngoingMatchDTO match = (OngoingMatchDTO) request.getAttribute("match");
     String message = match.getConditionMessage().replace("\n", "<br>");
 %>
 

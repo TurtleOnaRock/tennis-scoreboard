@@ -16,28 +16,29 @@ public class PlayerScore {
 
     private int point;
 
-    public PlayerScore(){}
+    public PlayerScore() {
+    }
 
-    public PlayerScore(Player player){
+    public PlayerScore(Player player) {
         this.player = player;
         this.set = 0;
         this.game = 0;
         this.point = 0;
     }
 
-    public int upPoint(){
+    public int upPoint() {
         return this.point++;
     }
 
-    public int downPoint(){
+    public int downPoint() {
         return this.point--;
     }
 
-    public int upGame(){
+    public int upGame() {
         return this.game++;
     }
 
-    public int upSet(){
+    public int upSet() {
         return this.set++;
     }
 

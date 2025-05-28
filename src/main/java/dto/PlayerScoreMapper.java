@@ -4,8 +4,8 @@ import services.PlayerScore;
 
 public class PlayerScoreMapper {
 
-    public static PlayerScoreDTO toPlayerScoreDTO(PlayerScore playerScore, boolean tieBreak){
-        if(playerScore == null){
+    public static PlayerScoreDTO toPlayerScoreDTO(PlayerScore playerScore, boolean tieBreak) {
+        if (playerScore == null) {
             throw new NullPointerException("PlayerScoreMapper got playerScore == null");
         }
 
@@ -15,7 +15,7 @@ public class PlayerScoreMapper {
         int game = playerScore.getGame();
         int set = playerScore.getSet();
 
-        if(tieBreak){
+        if (tieBreak) {
             point = String.valueOf(playerScore.getPoint());
         } else {
             point = pointMapper(playerScore.getPoint());
@@ -24,20 +24,20 @@ public class PlayerScoreMapper {
         return new PlayerScoreDTO(id, name, point, game, set);
     }
 
-    private static String pointMapper(int score){
-        if (score == 0){
+    private static String pointMapper(int score) {
+        if (score == 0) {
             return String.valueOf(0);
         }
-        if (score == 1){
+        if (score == 1) {
             return String.valueOf(15);
         }
-        if (score == 2){
+        if (score == 2) {
             return String.valueOf(30);
         }
-        if (score == 3){
+        if (score == 3) {
             return String.valueOf(40);
         }
-        if (score == 4){
+        if (score == 4) {
             return "AD";
         }
         return "";

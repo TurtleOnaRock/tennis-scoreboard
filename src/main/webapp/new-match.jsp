@@ -1,3 +1,4 @@
+<%@ page import="config.AppConfig" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -6,6 +7,7 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <title>New Match</title>
 </head>
+<% int nameLength = AppConfig.getPlayerNameLength();%>
 <body class="all-screen-container">
 
 <div class="header">
@@ -20,9 +22,17 @@
     <div class="content-box">
         <form class="form_new_players" action="new-match" method="post">
             <label for="player_name_1">Player 1</label>
-            <input type="text" id="player_name_1" name="player_name_1" placeholder="player's name"/>
+            <input type="text"
+                   maxlength="<%=nameLength%>"
+                   id="player_name_1"
+                   name="player_name_1"
+                   placeholder="player's name"/>
             <label for="player_name_2">Player 2</label>
-            <input type="text" id="player_name_2" name="player_name_2" placeholder="player's name"/>
+            <input type="text"
+                   maxlength="<%=nameLength%>"
+                   id="player_name_2"
+                   name="player_name_2"
+                   placeholder="player's name"/>
             <button class="button-form-large" type="submit">Send</button>
         </form>
         <div class="error-box">

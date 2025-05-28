@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class TennisMatchDTO {
+public class OngoingMatchDTO {
     private final PlayerScoreDTO player1;
     private final PlayerScoreDTO player2;
     private final UUID uuid;

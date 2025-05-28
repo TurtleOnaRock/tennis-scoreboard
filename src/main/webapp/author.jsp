@@ -22,7 +22,7 @@
 </div>
 
 <div class="footer">
-    <p>made by <a href="/author.jsp">A6e3iana</a></p>
+    <p>made by A6e3iana</p>
 </div>
 
 </body>

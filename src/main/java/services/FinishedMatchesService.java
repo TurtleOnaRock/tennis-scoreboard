@@ -1,5 +1,6 @@
 package services;
 
+import config.AppConfig;
 import dao.h2.FinishedMatchDAO;
 import dao.h2.FinishedMatchDAOImpl;
 import dto.FinishedMatchDTO;
@@ -7,6 +8,7 @@ import dto.FinishedMatchMapper;
 import dto.FinishedMatchesDTOWrapper;
 import entities.FinishedMatch;
 import lombok.NoArgsConstructor;
+import servlets.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,51 +17,48 @@ import java.util.List;
 public class FinishedMatchesService {
 
     public static final int MIN_PAGE_NUMBER = 1;
-    public static final int PAGE_SIZE = 5;
+    public static final String EMPTY_STRING = "";
 
-    public void save(TennisMatch match) {
+    public void save(OngoingMatch match) {
         FinishedMatch finishedMatch = toFinishedMatch(match);
         FinishedMatchDAO dao = new FinishedMatchDAOImpl();
         dao.save(finishedMatch);
     }
 
     public FinishedMatchesDTOWrapper getAll(int pageNumber) {
-        if (pageNumber < MIN_PAGE_NUMBER) {
-            pageNumber = MIN_PAGE_NUMBER;
-        }
-
-        int totalPages = getTotalPages();
-        if(pageNumber > totalPages){
-            pageNumber = totalPages;
-        }
-
-        int start = ((pageNumber - 1) * PAGE_SIZE) + 1;
-        FinishedMatchDAO dao = new FinishedMatchDAOImpl();
-        List<FinishedMatch> matches = dao.getAll(start, PAGE_SIZE);
-
-        List<FinishedMatchDTO> finishedMatchesDTO = new ArrayList<>();
-        FinishedMatchMapper mapper = new FinishedMatchMapper();
-        for (FinishedMatch match : matches) {
-            finishedMatchesDTO.add(mapper.toFinishedMatchDTO(match));
-        }
-        return new FinishedMatchesDTOWrapper(finishedMatchesDTO, pageNumber, totalPages);
+        return get(EMPTY_STRING, pageNumber);
     }
 
     public FinishedMatchesDTOWrapper getByName(String playerName, int pageNumber) {
-        if (pageNumber < MIN_PAGE_NUMBER) {
-            pageNumber = MIN_PAGE_NUMBER;
-        }
+        return get(playerName, pageNumber);
+    }
 
-        int totalPages = getTotalPages(playerName);
-        if(pageNumber > totalPages){
-            pageNumber = totalPages;
-        }
-
-        int start = ((pageNumber -1) * PAGE_SIZE) +1;
-        FinishedMatchDAO dao = new FinishedMatchDAOImpl();
-        List<FinishedMatch> matches = dao.getByName(playerName, start, PAGE_SIZE);
-
+    private FinishedMatchesDTOWrapper get(String playerName, int pageNumber) {
+        int pageSize = AppConfig.getTableRowSize();
         List<FinishedMatchDTO> finishedMatchesDTO = new ArrayList<>();
+        FinishedMatchDAO dao = new FinishedMatchDAOImpl();
+        List<FinishedMatch> matches;
+        long amountOfRecords;
+
+        if (playerName.isEmpty()) {
+            amountOfRecords = dao.amountOfRecords();
+        } else {
+            amountOfRecords = dao.amountOfRecords(playerName);
+        }
+        if (amountOfRecords == 0) {
+            return new FinishedMatchesDTOWrapper(finishedMatchesDTO, 1, 1);
+        }
+
+        int totalPages = calculateTotalPages(amountOfRecords, pageSize);
+        pageNumber = ValidationUtils.chooseValueOrMinMax(pageNumber, MIN_PAGE_NUMBER, totalPages);
+        int startPosition = ((pageNumber - 1) * pageSize) + 1;
+
+        if (playerName.isEmpty()) {
+            matches = dao.getAll(startPosition, pageSize);
+        } else {
+            matches = dao.getByName(playerName, startPosition, pageSize);
+        }
+
         FinishedMatchMapper mapper = new FinishedMatchMapper();
         for (FinishedMatch match : matches) {
             finishedMatchesDTO.add(mapper.toFinishedMatchDTO(match));
@@ -67,7 +66,7 @@ public class FinishedMatchesService {
         return new FinishedMatchesDTOWrapper(finishedMatchesDTO, pageNumber, totalPages);
     }
 
-    private FinishedMatch toFinishedMatch(TennisMatch match) {
+    private FinishedMatch toFinishedMatch(OngoingMatch match) {
         FinishedMatch finishedMatch = new FinishedMatch();
         finishedMatch.setPlayer1(match.getPlayer1().getPlayer());
         finishedMatch.setPlayer2(match.getPlayer2().getPlayer());
@@ -75,17 +74,9 @@ public class FinishedMatchesService {
         return finishedMatch;
     }
 
-    private int getTotalPages() {
-        FinishedMatchDAO dao = new FinishedMatchDAOImpl();
-        long amountOfRecords = dao.amountOfRecords();
-        int totalPages = (int) amountOfRecords / PAGE_SIZE;
-        return (amountOfRecords % PAGE_SIZE == 0) ? totalPages : totalPages + 1;
+    private int calculateTotalPages(long amountOfRecords, int pageSize) {
+        int totalPages = (int) amountOfRecords / pageSize;
+        return (amountOfRecords % pageSize == 0) ? totalPages : totalPages + 1;
     }
 
-    private int getTotalPages(String name) {
-        FinishedMatchDAO dao = new FinishedMatchDAOImpl();
-        long amountOfRecords = dao.amountOfRecords(name);
-        int totalPages = (int) amountOfRecords / PAGE_SIZE;
-        return (amountOfRecords % PAGE_SIZE == 0) ? totalPages : totalPages + 1;
-    }
 }

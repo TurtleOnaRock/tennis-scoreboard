@@ -1,6 +1,7 @@
 <%@ page import="dto.FinishedMatchDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dto.FinishedMatchesDTOWrapper" %>
+<%@ page import="config.AppConfig" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,12 +28,10 @@
 
 <div class="content-container">
     <div class="content-box">
-        <% if (matchesDTO.isEmpty()) { %>
-        <p>There is no any competed match.</p>
-        <% } else {%>
         <form action="matches" method="get">
             <input class="search-match"
                    type="text"
+                   maxlength="<%=AppConfig.getPlayerNameLength()%>"
                    placeholder="player's name"
                    name="filter_by_player_name">
             <button class="button-form-large" type="submit">Search</button>
@@ -45,17 +44,23 @@
                 <th>Winner</th>
             </thead>
             <tbody>
-            <% for (FinishedMatchDTO matchDTO : matchesDTO) { %>
-            <tr>
-                <td><%=matchDTO.getId()%>
-                </td>
-                <td><%=matchDTO.getNameOfPlayer1()%>
-                </td>
-                <td><%=matchDTO.getNameOfPlayer2()%>
-                </td>
-                <td><%=matchDTO.getNameOfWinner()%>
-                </td>
-            </tr>
+            <% if (matchesDTO.isEmpty()) { %>
+                <tr>
+                    <td colspan="4">There is no competed match of <%=filterPlayerName.isEmpty() ? "anybody." : filterPlayerName%>.</td>
+                </tr>
+            <% } else {%>
+                <% for (FinishedMatchDTO matchDTO : matchesDTO) { %>
+                <tr>
+                    <td><%=matchDTO.getId()%>
+                    </td>
+                    <td><%=matchDTO.getNameOfPlayer1()%>
+                    </td>
+                    <td><%=matchDTO.getNameOfPlayer2()%>
+                    </td>
+                    <td><%=matchDTO.getNameOfWinner()%>
+                    </td>
+                </tr>
+                <% } %>
             <% } %>
             </tbody>
         </table>
@@ -81,7 +86,9 @@
             </form>
             <form>
                 <input class="form-page"
-                       type="text"
+                       type="number"
+                       min="1"
+                       max="<%=totalPage%>"
                        placeholder="page"
                        name="page">
                 <input type="hidden"
@@ -90,7 +97,6 @@
                 <button class="button-form-large">Page</button>
             </form>
         </div>
-        <% } %>
     </div>
 </div>
 

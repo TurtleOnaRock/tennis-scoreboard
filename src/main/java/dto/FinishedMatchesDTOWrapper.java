@@ -15,7 +15,7 @@ public class FinishedMatchesDTOWrapper {
     private final int totalPages;
     private String filterPlayerName;
 
-    public FinishedMatchesDTOWrapper(List<FinishedMatchDTO> finishedMatchesDto, int currentPage, int totalPages){
+    public FinishedMatchesDTOWrapper(List<FinishedMatchDTO> finishedMatchesDto, int currentPage, int totalPages) {
         this.finishedMatchesDto = finishedMatchesDto;
         this.currentPage = currentPage;
         this.totalPages = totalPages;
